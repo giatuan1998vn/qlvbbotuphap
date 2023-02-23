@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ReceivePort _receivePort = ReceivePort();
 
 
-  final fileUrl = "http://apivbdhbtp.ungdungtructuyen.vn/Uploads/70e15eba-45b1-4b03-8446-4f49cc73a9d9.pdf";
+  final fileUrl = "http://qlvbapi.moj.gov.vn/Uploads/70e15eba-45b1-4b03-8446-4f49cc73a9d9.pdf";
 
   static downloadingCallback(id, status, progress) {
     SendPort? sendPort = IsolateNameServer.lookupPortByName("downloading");
@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
     position = Offset(10.0, height + 100);
     initDownloadsDirectoryState();
 
-    getFileFromUrl("http://apivbdhbtp.ungdungtructuyen.vn/Uploads/70e15eba-45b1-4b03-8446-4f49cc73a9d9.pdf").then((value) => {
+    getFileFromUrl("http://qlvbapi.moj.gov.vn/Uploads/70e15eba-45b1-4b03-8446-4f49cc73a9d9.pdf").then((value) => {
         setState(() {
           if (value != null) {
             urlPDFPath = value.path;

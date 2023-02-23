@@ -36,7 +36,7 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
     });
 
     String url =
-        "http://apivbdhbtp.ungdungtructuyen.vn/test/GetDuThaoByID/" + widget.idDuThao!;
+        "http://qlvbapi.moj.gov.vn/test/GetDuThaoByID/" + widget.idDuThao!;
     sharedStorage = await SharedPreferences.getInstance();
     String? token = sharedStorage!.getString("token");
     var response = await http.get(Uri.parse(url), headers: {
@@ -49,7 +49,7 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
       var items = jsonDecode(response.body)['OData'];
 
       String url =
-          "http://apivbdhbtp.ungdungtructuyen.vn/test/GetYKienJsons/" + widget.idDuThao!;
+          "http://qlvbapi.moj.gov.vn/test/GetYKienJsons/" + widget.idDuThao!;
       var responseYKien = await http.get(Uri.parse(url), headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',

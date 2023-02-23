@@ -169,7 +169,7 @@ class _SheetButtonState extends State<SheetButton> {
   SharedPreferences? sharedStorage;
 
   Future<void> Send(String ykien, String id, int action) async {
-    String apiUrl = "http://apivbdhbtp.ungdungtructuyen.vn/test/XuLyDuThao";
+    String apiUrl = "http://qlvbapi.moj.gov.vn/test/XuLyDuThao";
     String trangthai = "";
     if (action == 0) {
       trangthai = "5";

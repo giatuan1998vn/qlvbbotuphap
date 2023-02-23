@@ -1,17 +1,40 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:qlvbbotuphap/Login.dart';
 import 'package:qlvbbotuphap/btnavigator_widget.dart';
 import 'package:qlvbbotuphap/data/moor_database.dart';
+import 'package:qlvbbotuphap/local_notification_service.dart';
 import 'package:qlvbbotuphap/shared.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
+
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'high_importance_channel', // id
+    'High Importance Notifications', // title
+    // 'This channel is used for important notifications.', // description
+    importance: Importance.high,
+    playSound: true);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
+Future<void> backgroundHandler(RemoteMessage message) async{
+  print(message.data.toString());
+  print(message.notification!.title);
+  await Firebase.initializeApp();
+}
+const debug = true;
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   SharedPreferences sharedStorage = await SharedPreferences.getInstance();
   if(sharedStorage.containsKey("expires_in")){
     var expireIn = sharedStorage.getString("expires_in");
@@ -66,30 +89,107 @@ class _NotificationState extends State<Notification> {
   SharedPreferences? sharedStorage;
   final _keymain = GlobalKey<ScaffoldState>();
 
-  @override
   void initState() {
     super.initState();
-
-    //pushNotification();
-    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-    AndroidInitializationSettings initializationSettingsAndroid =
+    LocalNotificationService.initialize(context);
+    FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
     AndroidInitializationSettings('@mipmap/ic_launcher');
-    // final IOSInitializationSettings initializationSettingsIOS =
-    // // IOSInitializationSettings(
-    // //     requestSoundPermission: true,
-    // //     requestBadgePermission: true,
-    // //     requestAlertPermission: true,
-    // //     onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    // var initSetttings = new InitializationSettings(
-    //     android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-    // // flutterLocalNotificationsPlugin!.initialize(initSetttings,
-    // //     onSelectNotification: onSelectNotification);
-    // _requestPermissions();
-    // firebaseMessaging!.getToken().then((String? token) {
-    //   assert(token != null);
-    //   tokenfirebase = token;
-    // });
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if(message != null){
+        final routeFromMessage = message.data["route"];
+      }
+    });
+
+    ///foreground
+    FirebaseMessaging.onMessage.listen((message) {
+      if(message.notification != null){
+        print(message.notification?.body);
+        print(message.notification?.title);
+      }
+
+      LocalNotificationService.display(message);
+    });
+    ///open app
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      final routeFromMessage = message.data["route"];
+
+      Navigator.of(context).pushNamed(routeFromMessage);
+    });
+
+    FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    if(Platform.isIOS){
+
+      FirebaseMessaging.instance.getAPNSToken().then((value){
+        print("token key =" + value.toString());
+        tokenfirebase = value.toString();
+      });
+      FirebaseMessaging.instance.getToken().then((value){
+        print("token key1 =" + value.toString());
+        tokenfirebase = value.toString();
+      });
+      //
+      // FirebaseMessaging.instance.getAPNSToken().then((value){
+      //   print("token key =" + value.toString());
+      // tokenDevice = value.toString();
+      // });
+    }else{
+      FirebaseMessaging.instance.getToken().then((value){
+        print("token key2 =" + value.toString());
+        tokenfirebase = value.toString();
+      });
+    }
+
+
+    if (Platform.isIOS) {
+      FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+
+    }
   }
+  @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   //pushNotification();
+  //   flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+  //   AndroidInitializationSettings initializationSettingsAndroid =
+  //   AndroidInitializationSettings('@mipmap/ic_launcher');
+  //   // final IOSInitializationSettings initializationSettingsIOS =
+  //   // // IOSInitializationSettings(
+  //   // //     requestSoundPermission: true,
+  //   // //     requestBadgePermission: true,
+  //   // //     requestAlertPermission: true,
+  //   // //     onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+  //   // var initSetttings = new InitializationSettings(
+  //   //     android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+  //   // // flutterLocalNotificationsPlugin!.initialize(initSetttings,
+  //   // //     onSelectNotification: onSelectNotification);
+  //   // _requestPermissions();
+  //   FirebaseMessaging.instance.getToken().then((String? token) {
+  //     assert(token != null);
+  //     tokenfirebase = token;
+  //   });
+  // }
   void _requestPermissions() {
     flutterLocalNotificationsPlugin!
         .resolvePlatformSpecificImplementation<

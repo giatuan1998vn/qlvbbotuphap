@@ -26,7 +26,7 @@ class PageState extends State<HomePage> {
   String? hoten, chucvu;
 
   getUserInfor() async {
-    String url = "http://apivbdhbtp.ungdungtructuyen.vn/test/GetThongTinUser";
+    String url = "http://qlvbapi.moj.gov.vn/test/GetThongTinUser";
     sharedStorage = await SharedPreferences.getInstance();
     String? token = await sharedStorage!.getString("token");
     var response = await http.get(

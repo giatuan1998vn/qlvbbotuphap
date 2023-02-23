@@ -42,7 +42,7 @@ class LoginState extends State<LoginWidget> {
   }
 
   updateTokenFirebase(String tokenUser) async{
-    var url = "http://apivbdhbtp.ungdungtructuyen.vn/test/UpdateTokenFirebase?tokenfirebase=" + tokenfirebase!;
+    var url = "http://qlvbapi.moj.gov.vn/test/UpdateTokenFirebase?tokenfirebase=" + tokenfirebase!;
     var response = await http.get(
         Uri.parse(url),
         headers: {
@@ -191,7 +191,7 @@ class LoginState extends State<LoginWidget> {
   Future<void> login(String username, String password) async{
     if(usernameController.text.isNotEmpty && passwordController.text.isNotEmpty){
 //      var url = "http://apivbdhbtp.vn/token";
-      var url = "http://apivbdhbtp.ungdungtructuyen.vn/token";
+      var url = "http://qlvbapi.moj.gov.vn/token";
       var details = {
         'username': username,
         'password': password,

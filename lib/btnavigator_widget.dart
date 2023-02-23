@@ -31,7 +31,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
 
 
   getUserInfor() async {
-    String url = "http://apivbdhbtp.ungdungtructuyen.vn/test/GetThongTinUser";
+    String url = "http://qlvbapi.moj.gov.vn/test/GetThongTinUser";
     sharedStorage = await SharedPreferences.getInstance();
     String? token = sharedStorage!.getString("token");
     var response = await http.get(

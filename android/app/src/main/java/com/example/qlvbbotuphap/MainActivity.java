@@ -1,4 +1,4 @@
-package com.example.qlvbbotuphap;
+package com.btp.simax.jsc;
 
 import io.flutter.embedding.android.FlutterActivity;
 

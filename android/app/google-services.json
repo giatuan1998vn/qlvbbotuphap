@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "288931241861",
+    "project_id": "qlvb-botuphap",
+    "storage_bucket": "qlvb-botuphap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288931241861:android:31bd3e7b1e0a409022aeec",
+        "android_client_info": {
+          "package_name": "com.btp.simax.jsc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288931241861-2u9f33j7uhbejcg024eudv112sifd5c3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKGzZO0y196NBJjmEXATnl_SsvCyM9Chw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288931241861-2u9f33j7uhbejcg024eudv112sifd5c3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

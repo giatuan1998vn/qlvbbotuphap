@@ -15,7 +15,8 @@ bool? isLogin;
 FirebaseMessaging? firebaseMessaging ;
 String? tokenfirebase;
 SharedPreferences? sharedStorage;
-const String DOMAIN = "http://apivbdhbtp.ungdungtructuyen.vn";
+const String DOMAIN = "http://qlvbapi.moj.gov.vn";
+//const String DOMAIN = "http://apivbdhbtp.ungdungtructuyen.vn";
 
 void logOut(BuildContext context) async {
   sharedStorage = await SharedPreferences.getInstance();

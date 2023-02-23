@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.qlvbbotuphap">
+    package="com.btp.simax.jsc">
    <application
-        android:label="qlvbbotuphap"
+        android:label="QLVB Bộ Tư Pháp"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

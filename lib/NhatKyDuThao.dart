@@ -31,7 +31,7 @@ class _NhatKyDuThao extends State<NhatKyDuThao> {
     });
 
     String url =
-        "http://apivbdhbtp.ungdungtructuyen.vn/test/GetNhatKyJsons/" + widget.idDuThao!;
+        "http://qlvbapi.moj.gov.vn/test/GetNhatKyJsons/" + widget.idDuThao!;
     sharedStorage = await SharedPreferences.getInstance();
     String? token = sharedStorage!.getString("token");
     var response = await http.get(Uri.parse(url), headers: {

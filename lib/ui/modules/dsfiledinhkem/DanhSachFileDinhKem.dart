@@ -27,7 +27,7 @@ class DSachFileState extends State<DSachFile> {
   fetchData() async {
     print('idDuThao: ${widget.idDuThao}');
     String url =
-        "http://apivbdhbtp.ungdungtructuyen.vn/test/GetDuThaoByID/" + widget.idDuThao!;
+        "http://qlvbapi.moj.gov.vn/test/GetDuThaoByID/" + widget.idDuThao!;
     sharedStorage = await SharedPreferences.getInstance();
     String? token = sharedStorage!.getString("token");
 
