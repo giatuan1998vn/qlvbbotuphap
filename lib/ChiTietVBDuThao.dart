@@ -20,10 +20,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ThongTinDuThaoWidget extends StatefulWidget {
-  ThongTinDuThaoWidget({ this.idDuThao, this.trangthai, this.fileName}) ;
-  final String? idDuThao;
-  final dynamic? trangthai;
-  final String? fileName;
+  ThongTinDuThaoWidget({ required this.idDuThao,required this.trangthai,required this.fileName}) ;
+  final String idDuThao;
+  final int trangthai;
+  final String fileName;
   @override
   State<StatefulWidget> createState() {
     return TabBarVBDuThao();
@@ -41,7 +41,7 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
   String? AuthToken;
   bool isLoadingPDF = true;
   var urlToSign = "";
-  var encodedImage;
+   String encodedImages = "";
   double pdfWidth = 612;
   double pdfHeight = 792;
   @override
@@ -54,7 +54,7 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
         // print(assetPDFPath);
       });
     });
-    print(widget.idDuThao);
+
 
   }
 
@@ -65,7 +65,7 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
       // "https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf";
       // final url = "https://pdfkit.org/docs/guide.pdf";
       // final url = "http://www.pdf995.com/samples/pdf.pdf";
-      final url = 'http://apivbdhbtp.ungdungtructuyen.vn' + filePath;
+      final url = 'http://qlvbapi.moj.gov.vn/' + filePath;
       urlToSign = url;
       final filename = url.substring(url.lastIndexOf("/") + 1);
       var request = await HttpClient().getUrl(Uri.parse(url));
@@ -90,17 +90,16 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
     final database = Provider.of<TaskDatabase>(buildContext);
     Task defaultSign = await database.getDefault();
     if (defaultSign != null){
-      encodedImage = defaultSign.name;
+      encodedImages = defaultSign.name!;
     }
     else
-      encodedImage = "";
+      encodedImages = "";
   }
 
 //Get api
   fetchData() async {
-    print('idDuThao: ${widget.idDuThao}');
     String url =
-        "http://qlvbapi.moj.gov.vn/test/GetDuThaoByID/" + widget.idDuThao!;
+        "http://qlvbapi.moj.gov.vn/test/GetDuThaoByID/" + widget.idDuThao;
     sharedStorage = await SharedPreferences.getInstance();
     String? token = sharedStorage!.getString("token");
     AuthToken = token;
@@ -238,7 +237,7 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
             !isLoadingPDF
             ? (remotePDFpath.value != '' && remotePDFpath.value.toLowerCase().contains(".pdf"))?
             Container(
-              child: PdfViewPage(path: remotePDFpath, idDuThao: widget.idDuThao!, token: AuthToken!, urlToSign: urlToSign, trangthai: widget.trangthai, encodedImage: encodedImage, left: 0, top: 0, pdfWidth: pdfWidth, pdfHeight: pdfHeight,),
+              child: PdfViewPage(path: remotePDFpath, idDuThao: widget.idDuThao!, token: AuthToken!, urlToSign: urlToSign, trangthai: widget.trangthai, encodedImage: encodedImages, left: 0, top: 0, pdfWidth: pdfWidth, pdfHeight: pdfHeight,),
               // child: PDFNativeScreen(path: remotePDFpath,),
             ): Container(
               child: Center(

@@ -12,12 +12,14 @@ import 'package:http/http.dart' as http;
 
 
 class DSachFile extends StatefulWidget {
-  final String? idDuThao;
-  final dynamic trangthai;
-  DSachFile({this.idDuThao, this.trangthai});
-
-
-  DSachFileState createState() => DSachFileState();
+   int idDuThao;
+   int trangthai;
+  DSachFile({required this.idDuThao,required this.trangthai});
+   @override
+   State<StatefulWidget> createState() {
+     return DSachFileState();
+   }
+  // DSachFileState createState() => DSachFileState();
 }
 
 class DSachFileState extends State<DSachFile> {
@@ -27,7 +29,7 @@ class DSachFileState extends State<DSachFile> {
   fetchData() async {
     print('idDuThao: ${widget.idDuThao}');
     String url =
-        "http://qlvbapi.moj.gov.vn/test/GetDuThaoByID/" + widget.idDuThao!;
+        "http://qlvbapi.moj.gov.vn/test/GetDuThaoByID/" + widget.idDuThao.toString();
     sharedStorage = await SharedPreferences.getInstance();
     String? token = sharedStorage!.getString("token");
 
@@ -54,7 +56,7 @@ class DSachFileState extends State<DSachFile> {
           context,
           MaterialPageRoute(
             builder: (context) => ThongTinDuThaoWidget(
-              idDuThao: widget.idDuThao,
+              idDuThao: widget.idDuThao.toString(),
               trangthai: widget.trangthai,
               fileName: lstFile![0]["nameField"],
             ),
@@ -66,8 +68,8 @@ class DSachFileState extends State<DSachFile> {
           context,
           MaterialPageRoute(
             builder: (context) => ThongTinDuThaoWidget(
-              idDuThao: widget.idDuThao,
-              trangthai: widget.trangthai,
+              idDuThao: widget.idDuThao.toString(),
+              trangthai: widget.trangthai,fileName: "",
             ),
           ),
         );
@@ -91,9 +93,9 @@ class DSachFileState extends State<DSachFile> {
               context,
               MaterialPageRoute(
                 builder: (context) => ThongTinDuThaoWidget(
-                  idDuThao: widget.idDuThao,
+                  idDuThao: widget.idDuThao.toString(),
                   trangthai: widget.trangthai,
-                  fileName: item["nameField"],
+                  fileName: item["nameField"] != null ? item["nameField"]:"",
                 ),
               ),
             );

@@ -22,7 +22,7 @@ class DuThaoState extends State<DuThaoWidget> {
   List duthaoList = [];
   List duthaoDisplay = [];
   bool isLoading = false;
-  var ttDuthaoKey= 4;
+  int ttDuthaoKey= 4;
 
   String? hoten="", chucvu="";
 
@@ -331,35 +331,69 @@ class DuThaoState extends State<DuThaoWidget> {
       },
     );
   }
+  Widget _getBodyPage(context, int index) {
+    return Container( height: 200,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Material(
+
+            clipBehavior: Clip.antiAlias,
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
+            child:  DSachFile(
+                idDuThao:   index,trangthai:ttDuthaoKey
+              // idDuThao: sMIDField.toString(),
+            )
+        ),
+      ),
+    );
+  }
 // các thẻ con trong list view
   Widget getCard(item){
     var vbdiNguoiSoanField = item['vbdiNguoiSoanField']['titleField'];
     var vbdiTrichYeuField = item['vbdiTrichYeuField'];
     var isyKienField = item['isyKienField'];
-    var sMIDField = item['idField'];
+    int sMIDField = item['idField'];
     String trangthaiState = ttDuthao(item['vbdiTrangThaiVBField']);
     return Card(
         elevation: 1.5,
         child: InkWell(
           onTap: () {
-            /*isyKienField == false
-                ? Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ThongTinDuThaoWidget(
-                        idDuThao: sMIDField.toString(),
-                        trangthai: ttDuthaoKey,
-                      ),
-                    ),
-                  )
-                : print('tapped');*/
+
+
             isyKienField == false
-                ?  FloatingModal(
-                child:  DSachFile(
-                  idDuThao: sMIDField.toString(),
-                  trangthai: ttDuthaoKey,
-                ),
-            )
+                ?
+            // FloatingModal(
+            //   child:  DSachFile(
+            //       idDuThao:   sMIDField,trangthai:ttDuthaoKey
+            //     // idDuThao: sMIDField.toString(),
+            //   ),
+            // )
+            showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return _getBodyPage(context, sMIDField);
+                }
+                )
+
+
+          // isyKienField == false
+          //       ? Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //             builder: (context) => DSachFile(
+          //               idDuThao: sMIDField,
+          //               trangthai: ttDuthaoKey,
+          //             ),
+          //           ),
+          //         )
+
+
+
+
+
+
+
             //     showFloatingModalBottomSheet(
             //     context: context,
             //     builder: (context) => DSachFile(

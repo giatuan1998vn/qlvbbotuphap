@@ -18,7 +18,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   int _currentIndex = 0;
   String _title = 'DEMO VGCA';
   String urlttVB = '';
-  int? trangthaiDT =0;
+  int trangthaiDT=0;
   String tenUser = "";
   String chucvu = "";
 
@@ -85,7 +85,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         return HomePage(returnData: trangthaiVB);
         break;
       case 1:
-        return DuThaoWidget(urlLoaiVB: urlttVB, trangthai: trangthaiDT!,);
+        return DuThaoWidget(urlLoaiVB: urlttVB, trangthai: trangthaiDT,);
         break;
     }
   }

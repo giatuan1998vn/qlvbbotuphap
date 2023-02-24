@@ -14,17 +14,17 @@ import 'bottomsheet_widget.dart';
 import 'dart:io' show Platform;
 
 class PdfViewPage extends StatefulWidget {
-  ValueNotifier<String>? path = ValueNotifier<String>('');
-  final String? idDuThao;
-  final String? token;
-  final String? urlToSign;
-  final dynamic? trangthai;
-  final String? encodedImage;
-  final double? pdfWidth;
-  final double? pdfHeight;
-  final double? top;
-  final double? left;
-  PdfViewPage({Key? key, this.path, this.idDuThao, this.token, this.urlToSign, this.trangthai, this.encodedImage, this.top, this.left, this.pdfWidth, this.pdfHeight}) : super(key: key);
+  ValueNotifier<String> path = ValueNotifier<String>('');
+  final String idDuThao;
+  final String token;
+  final String urlToSign;
+  final int trangthai;
+  final String? encodedImage ;
+  final double pdfWidth;
+  final double pdfHeight;
+  final double top;
+  final double left;
+  PdfViewPage({Key? key, required this.path,required this.idDuThao,required this.token,required this.urlToSign,required this.trangthai,  this.encodedImage,required this.top,required this.left,required this.pdfWidth,required this.pdfHeight}) : super(key: key);
 
   @override
   _PdfViewPageState createState() => _PdfViewPageState(path: path!, idDuThao: idDuThao!, token: token!, urlToSign: urlToSign!, trangthai: trangthai, encodedImage: encodedImage!);
@@ -51,11 +51,11 @@ class _PdfViewPageState extends State<PdfViewPage> {
   String _signMessage = 'Unknown';
   List<Widget> listButton = [];
 //  String path;
-  final String? idDuThao;
-  final String? token;
-  final String? urlToSign;
-  final dynamic? trangthai;
-  final String? encodedImage;
+  final String idDuThao;
+  final String token;
+  final String urlToSign;
+  final dynamic trangthai;
+  final String encodedImage;
 
   ValueNotifier<String>? path = ValueNotifier<String>('');
 
@@ -66,7 +66,7 @@ class _PdfViewPageState extends State<PdfViewPage> {
   double? top, left;
   double? xOff, yOff;
   _PdfViewPageState({
-    @required this.path, this.idDuThao, this.token, this.urlToSign, this.trangthai, this.encodedImage
+    @required this.path, required this.idDuThao,required this.token,required this.urlToSign, this.trangthai,required this.encodedImage
   });
 
   Future<void> _getSignMessage(BuildContext buildContext) async {
