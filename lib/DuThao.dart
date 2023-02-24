@@ -9,8 +9,8 @@ import 'shared.dart';
 
 class DuThaoWidget extends StatefulWidget {
   final String? urlLoaiVB;
-  final int? trangthai;
-  const DuThaoWidget({Key? key, this.urlLoaiVB, this.trangthai}) : super(key: key);
+  final int trangthai;
+  const DuThaoWidget({Key? key, this.urlLoaiVB, required this.trangthai}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return DuThaoState();
@@ -24,7 +24,7 @@ class DuThaoState extends State<DuThaoWidget> {
   bool isLoading = false;
   var ttDuthaoKey= 4;
 
-  String? hoten, chucvu;
+  String? hoten="", chucvu="";
 
   @override
   void initState() {
@@ -152,7 +152,7 @@ class DuThaoState extends State<DuThaoWidget> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
-                        ElevatedButton(
+                        TextButton(
                             onPressed: (){
                               setState(() {
                                 sortType = 0;
@@ -166,7 +166,7 @@ class DuThaoState extends State<DuThaoWidget> {
                                 )
                             )
                         ),
-                        ElevatedButton(
+                        TextButton(
                             onPressed: (){
                               setState(() {
                                 sortType = 1;
@@ -180,14 +180,14 @@ class DuThaoState extends State<DuThaoWidget> {
                                 )
                             )
                         ),
-                        ElevatedButton(
+                        TextButton(
                             onPressed: (){
                               setState(() {
                                 sortType = 2;
                                 sort(duthaoList,sortType);
                               });
                             },
-                            child: Text('Người ký',
+                            child: Text('Người ký',textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

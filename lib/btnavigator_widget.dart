@@ -18,7 +18,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   int _currentIndex = 0;
   String _title = 'DEMO VGCA';
   String urlttVB = '';
-  int? trangthaiDT;
+  int? trangthaiDT =0;
   String tenUser = "";
   String chucvu = "";
 
